@@ -12,8 +12,8 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false,
-      "FsAllowlistConfig": { "all": true }
+      "fs": { "readFile": true },
+      "dialog": { "open": true }
     },
     "bundle": {
       "active": true,
