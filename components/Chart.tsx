@@ -4,13 +4,14 @@ import Plot from "react-plotly.js";
 
 type Props = {
   dataPoints: number[];
-  duration?: number
-  samplingFrequency?: number
+  graphFrequency?: number; // sample per second, default 10 to show in graph
+  // duration?: number
+  // samplingFrequency?: number
 };
 
-const Chart = ({ dataPoints, duration=10, samplingFrequency=10 }: Props) => {
+const Chart = ({ dataPoints, graphFrequency=10 }: Props) => {
 
-    const time = dataPoints.map((_, index) => index / samplingFrequency);
+    const time = dataPoints.map((_, index) => index / graphFrequency);
 
 
   return (
