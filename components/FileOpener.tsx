@@ -36,7 +36,7 @@ const FileOpener = ({ setFileData }: Props) => {
   };
 
   return (
-    <div>
+    <div className="w-full flex items-end justify-end p-2 px-5">
       {loading ? (
         <Loader />
       ) : (

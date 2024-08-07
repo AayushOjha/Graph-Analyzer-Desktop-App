@@ -4,16 +4,17 @@ import Plot from "react-plotly.js";
 
 type Props = {
   dataPoints: number[];
+  duration?: number
+  samplingFrequency?: number
 };
 
-const Chart = ({ dataPoints }: Props) => {
+const Chart = ({ dataPoints, duration=10, samplingFrequency=10 }: Props) => {
 
-    const time = dataPoints.map((_, index) => index / 20); // 10 samples per second
+    const time = dataPoints.map((_, index) => index / samplingFrequency);
 
 
   return (
-    <>
-      <h2>Line Chart: {dataPoints.length}</h2>
+    <div className="overflow-x-auto">
       <Plot
         data={[
           {
@@ -28,9 +29,9 @@ const Chart = ({ dataPoints }: Props) => {
           xaxis: { title: "Index" },
           yaxis: { title: "Value" },
         }}
-        style={{ width: "100%", height: "100%" }}
+        style={{ width: "160vh", height: "80vh" }}
       />
-    </>
+    </div>
   );
 };
 
