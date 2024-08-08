@@ -8,20 +8,19 @@ import { invoke } from "@tauri-apps/api";
 
 interface Props {
   setFileData: (data: number[]) => void;
+  setError: (err: string) => void;
 }
 
-const FileOpener = ({ setFileData }: Props) => {
+const FileOpener = ({ setFileData, setError }: Props) => {
   const [loading, setLoading] = useState(false);
 
   const handleOpen = async () => {
-    // setLoading(true);
+    setLoading(true);
     const _filePath = await open({
       title: "Open CSV File",
       filters: [{ name: "CSV Files", extensions: ["csv"] }],
       multiple: false,
     });
-
-    console.log('opening')
 
     if (_filePath) {
       try {
@@ -29,8 +28,13 @@ const FileOpener = ({ setFileData }: Props) => {
           path: _filePath,
           downsample: 4000,
         });
-        const parsedData: number[] = JSON.parse(data.content)
-        setFileData(parsedData);
+        console.log(data.error)
+        if (data.error) {
+          setError(data.error);
+        } else {
+          const parsedData = JSON.parse(data.content);
+          setFileData(parsedData);
+        }
       } catch (error) {
         console.error("Error reading file:", error);
       }
@@ -44,7 +48,7 @@ const FileOpener = ({ setFileData }: Props) => {
         <Loader />
       ) : (
         <button className="border px-8 py-2 rounded" onClick={handleOpen}>
-          Browse it
+          Load File
         </button>
       )}
     </div>
